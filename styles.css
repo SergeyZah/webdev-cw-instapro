@@ -195,4 +195,5 @@
   box-sizing: border-box;
   width: 100%;
   text-align: center;
+  cursor: pointer;
 }
