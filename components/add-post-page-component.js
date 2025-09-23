@@ -1,14 +1,13 @@
-import { uploadImage } from "../api.js";
-import { renderHeaderComponent } from "./header-component.js";
-import { renderUploadImageComponent } from "./upload-image-component.js";
-import { clearHTML } from "./utils.js";
+import { renderHeaderComponent } from './header-component.js'
+import { renderUploadImageComponent } from './upload-image-component.js'
+import { clearHTML } from './utils.js'
 
-let imageUrl = "";
+let imageUrl = ''
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
-  const render = () => {
-    // @TODO: Реализовать страницу добавления поста
-    const appHtml = `
+    const render = () => {
+        // @TODO: Реализовать страницу добавления поста
+        const appHtml = `
       <div class="page-container">
           <div class="header-container"></div>
           <div class="form">
@@ -22,27 +21,29 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
               </div>
           </div>
       </div>
-    `;
+    `
 
-    appEl.innerHTML = appHtml;
+        appEl.innerHTML = appHtml
 
-    const fileInputElement = document.querySelector(".upload-image-container");
-    renderUploadImageComponent({
-      element: fileInputElement,
-      onImageUrlChange: (newImageUrl) => {
-        imageUrl = newImageUrl;
-      }
+        const fileInputElement = document.querySelector(
+            '.upload-image-container',
+        )
+        renderUploadImageComponent({
+            element: fileInputElement,
+            onImageUrlChange: (newImageUrl) => {
+                imageUrl = newImageUrl
+            },
+        })
+
+        document.getElementById('add-button').addEventListener('click', () => {
+            onAddPostClick({
+                description: `${clearHTML(document.querySelector('#description-input').value)}`,
+                imageUrl: `${imageUrl}`,
+            })
+        })
+    }
+    render()
+    renderHeaderComponent({
+        element: document.querySelector('.header-container'),
     })
-
-    document.getElementById("add-button").addEventListener("click", () => {
-      onAddPostClick({
-        description: `${clearHTML(document.querySelector("#description-input").value)}`,
-        imageUrl: `${imageUrl}`,
-      });
-    });
-  };
-  render();
-  renderHeaderComponent({
-      element: document.querySelector(".header-container"),
-    });
 }
