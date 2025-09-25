@@ -2,7 +2,8 @@ import { USER_POSTS_PAGE } from '../routes.js'
 import { renderHeaderComponent } from './header-component.js'
 import { posts, goToPage } from '../index.js'
 import { initLikeListeners } from './initListenerLike.js'
-// import { formatDistanceToNow } from 'https://esm.sh/date-fns'
+import { formatDistanceToNow } from 'https://esm.sh/date-fns'
+import { ru } from 'https://esm.sh/date-fns/locale'
 // import { ru } from 'https://esm.sh/date-fns/locale';
 
 export function renderPostsPageComponent({ appEl }) {
@@ -14,15 +15,26 @@ export function renderPostsPageComponent({ appEl }) {
      * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
      */
 
-    console.log(posts)
-
     const renderPosts = () => {
         const postsHtml = posts
             .map((post, index) => {
-                // const timePost = formatDistanceToNow(post.createdAt, {
-                //     addSuffix: true,
-                //     locale: ru,
-                // })
+                const timePost = formatDistanceToNow(post.createdAt, {
+                    addSuffix: true,
+                    locale: ru,
+                })
+
+                let numberOfLikes = post.likes.length
+
+                const nameOfLikersAndId = post.likes
+                let nameOfLikers = nameOfLikersAndId.map((like) => like.name)
+                let numberOfUsers
+                if (numberOfLikes === 0) {
+                    numberOfUsers = ''
+                } else if (numberOfLikes === 1) {
+                    numberOfUsers = nameOfLikers[0]
+                } else {
+                    numberOfUsers = `${nameOfLikers[numberOfLikes - 1]} и еще ${numberOfLikes - 1}`
+                }
 
                 return `
           <li class="post">
@@ -38,7 +50,7 @@ export function renderPostsPageComponent({ appEl }) {
                 <img src="${post.isLiked ? './assets/images/like-active.svg' : './assets/images/like-not-active.svg'}">
               </button>
               <p class="post-likes-text">
-                Нравится: <strong>${post.likes.length}</strong>
+                Нравится: <strong>${numberOfUsers}</strong>
               </p>
             </div>
             <p class="post-text">
@@ -46,7 +58,7 @@ export function renderPostsPageComponent({ appEl }) {
                 ${post.description}
             </p>
             <p class="post-date">
-              ${post.createdAt}
+              ${timePost}
             </p>
           </li>`
             })
