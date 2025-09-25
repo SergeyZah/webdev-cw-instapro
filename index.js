@@ -77,9 +77,6 @@ export const goToPage = (newPage, data) => {
             function getposts() {
                 return fetch(`${postsHost}/user-posts/${data.userId}`, {
                     method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                    },
                 })
                     .then((response) => {
                         if (response.status === 401) {
@@ -179,3 +176,4 @@ const renderApp = () => {
 }
 
 goToPage(POSTS_PAGE)
+          

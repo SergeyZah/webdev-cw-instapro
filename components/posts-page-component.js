@@ -38,10 +38,10 @@ export function renderPostsPageComponent({ appEl }) {
 
                 return `
           <li class="post">
-            <div class="post-header" data-user-id="${post.user.id}" data-index="${index}">
-              <img src="${post.user.imageUrl}" class="post-header__user-image">
-              <p class="post-header__user-name">${post.user.name}</p>
-            </div>
+              <div class="post-header" data-user-id="${post.user.id}" data-index="${index}">
+                <img src="${post.user.imageUrl}" class="post-header__user-image">
+                <p class="post-header__user-name">${post.user.name}</p>
+              </div>
             <div class="post-image-container">
               <img class="post-image" src="${post.imageUrl}">
             </div>

@@ -197,3 +197,13 @@
   text-align: center;
   cursor: pointer;
 }
+
+.header-button {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
