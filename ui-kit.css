@@ -65,6 +65,7 @@ p {
 
 .button:hover {
   background-color: #6d73ff;
+  cursor: pointer;
 }
 
 .button[disabled="true"],
